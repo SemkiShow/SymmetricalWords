@@ -9,3 +9,9 @@ This is a program for finding words that have an axis of symmetry in a given dat
 - Run main or main.exe depending on your system
 - A terminal window will open for a few seconds
 - After it closes, output.txt will be created. It contains all words in a dataset that have an axis of symmetry
+
+## Datasets
+
+- words.txt and words_alpha.txt comes from [English words dataset](https://github.com/dwyl/english-words)
+- slowa.txt comes from [Słownik Języka Polskiego](https://sjp.pl/sl/odmiany/)
+- dataset.txt is a merge of words_alpha.txt and slowa.txt
