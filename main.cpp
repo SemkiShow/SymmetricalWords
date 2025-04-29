@@ -1,5 +1,46 @@
 #include <bits/stdc++.h>
 
+bool IsHorizontallySymmetrical(std::string word)
+{
+    std::string horizontallySymmetricalSymbols = "BCDEHIKOX\f\n\r\t\v";
+    bool isSymmetrical = false;
+    for (int i = 0; i < word.size(); i++)
+    {
+        isSymmetrical = false;
+        for (int j = 0; j < horizontallySymmetricalSymbols.size(); j++)
+        {
+            // std::cout << word[i] << " " << horizontallySymmetricalSymbols[j] << "\n";
+            if (word[i] == horizontallySymmetricalSymbols[j])
+            {
+                isSymmetrical = true;
+                break;
+            }
+        }
+        if (!isSymmetrical) return false;
+    }
+    return true;
+}
+
+bool IsVerticallySymmetrical(std::string word)
+{
+    std::string verticallySymmetricalSymbols = "AHIMOTUVWXY\f\n\r\t\v";
+    bool isSymmetrical = false;
+    for (int i = 0; i < word.size(); i++)
+    {
+        isSymmetrical = false;
+        for (int j = 0; j < verticallySymmetricalSymbols.size(); j++)
+        {
+            if (word[i] == verticallySymmetricalSymbols[j])
+            {
+                isSymmetrical = true;
+                break;
+            }
+        }
+        if (!isSymmetrical) return false;
+    }
+    return true;
+}
+
 int main()
 {
     // Load the dataset
@@ -7,6 +48,7 @@ int main()
     std::fstream datasetFile;
     datasetFile.open("dataset.txt", std::ios::in);
     std::vector<std::string> dataset;
+    dataset.push_back("obco");
     std::string buf = "";
     while (std::getline(datasetFile, buf))
         dataset.push_back(buf);
@@ -24,60 +66,52 @@ int main()
 
     // Find symmetrical words
     std::cout << "Finding symmetrical words...\n";
-    std::string notHorizontalLetters = "AFGJLMNPRSTUVWYZĄĘŚŃŻŹŁÓ";
-    std::string notVerticalLetters = "BCDEFGJKLNPRSXZĄĘŚŃŻŹŁÓ";
-    bool isHorizontal = true;
-    bool isVertical = true;
-    std::vector<std::string> output;
+    std::vector<std::string> horizontallySymmetricalWords;
+    std::vector<std::string> verticallySymmetricalWords;
     for (int i = 0; i < dataset.size(); i++)
     {
-        isHorizontal = true;
-        for (int j = 0; j < dataset[i].size(); j++)
-        {
-            for (int k = 0; k < notHorizontalLetters.size(); k++)
-            {
-                if (dataset[i][j] == notHorizontalLetters[k])
-                {
-                    isHorizontal = false;
-                    break;
-                }
-            }
-            if (!isHorizontal) break;
-        }
-        
-        isVertical = true;
-        for (int j = 0; j < dataset[i].size(); j++)
-        {
-            for (int k = 0; k < notVerticalLetters.size(); k++)
-            {
-                if (dataset[i][j] == notVerticalLetters[k])
-                {
-                    isVertical = false;
-                    break;
-                }
-            }
-            if (!isVertical) break;
-        }
-
-        if (isHorizontal || isVertical)
-            output.push_back(dataset[i]);
+        if (IsHorizontallySymmetrical(dataset[i])) horizontallySymmetricalWords.push_back(dataset[i]);
+        if (IsVerticallySymmetrical(dataset[i])) verticallySymmetricalWords.push_back(dataset[i]);
     }
 
-    // Find the longest word
+    // Find the longest words
     std::string longestWord = "";
-    for (int i = 0; i < output.size(); i++)
+    for (int i = 0; i < horizontallySymmetricalWords.size(); i++)
     {
-        if (output[i].size() > longestWord.size())
-            longestWord = output[i];
+        if (horizontallySymmetricalWords[i].size() > longestWord.size())
+            longestWord = horizontallySymmetricalWords[i];
     }
-    std::cout << "The longest word is " << longestWord << "\n";
+    std::cout << "The longest horizontally symmetrical word is " << longestWord << "\n";
+    longestWord = "";
+    for (int i = 0; i < verticallySymmetricalWords.size(); i++)
+    {
+        if (verticallySymmetricalWords[i].size() > longestWord.size())
+            longestWord = verticallySymmetricalWords[i];
+    }
+    std::cout << "The longest vertically symmetrical word is " << longestWord << "\n";
 
     // Write the output
-    std::fstream outputFile;
-    outputFile.open("output.txt", std::ios::out);
-    for (int i = 0; i < output.size(); i++)
-        outputFile << output[i] << "\n";
-    outputFile.close();
+    std::fstream horizontalOutputFile;
+    horizontalOutputFile.open("horizontal_output.txt", std::ios::out);
+    std::fstream verticalOutputFile;
+    verticalOutputFile.open("vertical_output.txt", std::ios::out);
+    std::fstream combinedOutputFile;
+    combinedOutputFile.open("combined_output.txt", std::ios::out);
+
+    for (int i = 0; i < horizontallySymmetricalWords.size(); i++)
+    {
+        horizontalOutputFile << horizontallySymmetricalWords[i] << "\n";
+        combinedOutputFile << horizontallySymmetricalWords[i] << "\n";
+    }
+    for (int i = 0; i < verticallySymmetricalWords.size(); i++)
+    {
+        verticalOutputFile << verticallySymmetricalWords[i] << "\n";
+        combinedOutputFile << verticallySymmetricalWords[i] << "\n";
+    }
+
+    horizontalOutputFile.close();
+    verticalOutputFile.close();
+    combinedOutputFile.close();
 
     return 0;
 }
