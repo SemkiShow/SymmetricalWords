@@ -1,3 +1,6 @@
 #!/bin/bash
 
-g++ -o main main.cpp && ./main
+set -e
+
+g++ -o main main.cpp
+./main
