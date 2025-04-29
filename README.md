@@ -14,4 +14,4 @@ This is a program for finding words that have an axis of symmetry or a point of 
 
 - words.txt and words_alpha.txt comes from [English words dataset](https://github.com/dwyl/english-words)
 - slowa.txt comes from [Słownik Języka Polskiego](https://sjp.pl/sl/odmiany/)
-- dataset.txt is a merge of words_alpha.txt and slowa.txt
+- dataset.txt is a merge of words.txt and slowa.txt
