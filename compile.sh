@@ -2,5 +2,5 @@
 
 set -e
 
-g++ -o main main.cpp
+g++ -o main -O3 main.cpp
 ./main

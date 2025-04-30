@@ -3,10 +3,10 @@
 set -e
 
 # Compiling for Linux
-g++ -o main -static main.cpp
+g++ -o main -O3 -static main.cpp
 
 # Compiling for Windows
-x86_64-w64-mingw32-g++ -o main.exe -static main.cpp
+x86_64-w64-mingw32-g++ -o main.exe -O3 -static main.cpp
 
 # Zipping the build
 zip release.zip main main.exe LICENSE README.md dataset.txt
