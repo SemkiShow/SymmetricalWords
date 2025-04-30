@@ -79,7 +79,6 @@ int main()
     std::fstream datasetFile;
     datasetFile.open("dataset.txt", std::ios::in);
     std::vector<std::string> dataset;
-    dataset.push_back("obco");
     std::string buf = "";
     while (std::getline(datasetFile, buf))
         dataset.push_back(trim(buf));

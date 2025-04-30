@@ -3,13 +3,13 @@
 set -e
 
 # Compiling for Linux
-g++ -o main main.cpp
+g++ -o main -static main.cpp
 
 # Compiling for Windows
-x86_64-w64-mingw32-g++ -o main.exe main.cpp
+x86_64-w64-mingw32-g++ -o main.exe -static main.cpp
 
 # Zipping the build
-zip release.zip main main.exe libgcc_s_seh-1.dll libstdc++-6.dll LICENSE README.md dataset.txt
+zip release.zip main main.exe LICENSE README.md dataset.txt
 rm main main.exe
 
 # Creating a GitHub release
